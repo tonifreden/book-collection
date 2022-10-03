@@ -13,30 +13,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import exercise.bookcollection.domain.Book;
-import exercise.bookcollection.domain.BookRepository;
+import exercise.bookcollection.domain.BookService;
 
 @RestController
 public class BookController {
+
     @Autowired
-    BookRepository bookRepository;
+    private BookService bookService;
 
     @GetMapping("/books")
     public List<Book> bookList() {
-        return (List<Book>) bookRepository.findAll();
+        return (List<Book>) bookService.bookList();
     }
 
-    @GetMapping("/books/{id]")
+    @GetMapping("/books/{id}")
     public Optional<Book> singleBook(@PathVariable("id") Long bookId) {
-        return bookRepository.findById(bookId);
+        return bookService.singleBook(bookId);
     }
 
     @PostMapping("/books")
     public Book addBook(@RequestBody Book book) {
-        return bookRepository.save(book);
+        return bookService.addBook(book);
     }
 
     @DeleteMapping("/books/{id}")
-    public ResponseEntity<Long> deleteBook(@PathVariable("id") Long bookId) {
-        return ResponseEntity.ok(bookId);
+    public ResponseEntity<?> deleteBook(@PathVariable("id") Long bookId) {
+        bookService.deleteBook(bookId);
+        return ResponseEntity.noContent().build();
     }
 }
