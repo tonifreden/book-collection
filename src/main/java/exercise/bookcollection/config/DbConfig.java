@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-public class SQLiteDbConfig {
+public class DbConfig {
     
     @Autowired
     private Environment environment;
@@ -25,7 +25,7 @@ public class SQLiteDbConfig {
 
     @Configuration
     @PropertySource("classpath:persistence.properties")
-    class SqliteConfig {
+    class H2Config {
         
     }
 }
